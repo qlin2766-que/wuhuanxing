@@ -1,0 +1,6 @@
+{
+  "name": "物换星 (Wuhuanxing)",
+  "description": "An experimental interactive narrative portfolio presented as a playable visual novel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,420 @@
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css');
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=LXGW+WenKai+TC:wght@300;400;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;700;905&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'PMingLiU Local';
+  src: url('./assets/fonts/PMingLiU.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: 'PMingLiU Local', 'PMingLiU', '新細明體', '細明體', 'LXGW WenKai', 'Inter', system-ui, sans-serif;
+  --font-serif: 'PMingLiU Local', 'PMingLiU', '新細明體', '細明體', 'Cormorant Garamond', 'Noto Serif SC', serif;
+  --font-mingliu: 'PMingLiU Local', 'PMingLiU', '新細明體', '細明體', serif;
+  --font-wenkai: 'PMingLiU Local', 'PMingLiU', '新細明體', '細明體', 'LXGW WenKai', sans-serif;
+  --font-mono: 'Cormorant Garamond', 'PMingLiU Local', 'JetBrains Mono', monospace;
+  --font-display: 'PMingLiU Local', 'PMingLiU', '新細明體', '細明體', 'Cormorant Garamond', 'Space Grotesk', sans-serif;
+}
+
+:root, body {
+  font-family: 'PMingLiU Local', 'PMingLiU', '新細明體', '細明體', 'Cormorant Garamond', serif;
+}
+
+/* Custom Scrollbar Thinness for Timeline scroll */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Poetic Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px) rotate(-0.5deg); }
+  75% { transform: translateX(2px) rotate(0.5deg); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(1deg); }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes flashThenFade {
+  0% { 
+    opacity: 0; 
+    transform: translate(-50%, -50%) scale(0.97); 
+  }
+  8% { 
+    opacity: 0.92; 
+    transform: translate(-50%, -50%) scale(1); 
+  }
+  25% { 
+    opacity: 0.68; 
+    transform: translate(-50%, -50%) scale(1); 
+  }
+  42% { 
+    opacity: 0.92; 
+    transform: translate(-50%, -50%) scale(1); 
+  }
+  58% { 
+    opacity: 0.72; 
+    transform: translate(-50%, -50%) scale(1); 
+  }
+  74% { 
+    opacity: 0.90; 
+    transform: translate(-50%, -50%) scale(1); 
+  }
+  100% { 
+    opacity: 0; 
+    transform: translate(-50%, -50%) scale(0.99); 
+    visibility: hidden; 
+  }
+}
+
+.animate-flash-then-fade {
+  animation: flashThenFade 4.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-shake {
+  animation: shake 0.3s ease-in-out infinite;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+.bounce-horizontal {
+  animation: bounceH 1s infinite;
+}
+
+@keyframes bounceH {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px); }
+}
+
+@keyframes whiteWaveEmit {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8), 0 0 0 2px rgba(255, 255, 255, 0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.26);
+    box-shadow: 0 0 0 16px rgba(255, 255, 255, 0), 0 0 0 32px rgba(255, 255, 255, 0);
+    opacity: 0;
+  }
+}
+
+.btn-particle-emit {
+  position: relative;
+  background-color: #1c1916 !important;
+  border: 1.5px solid #ffffff !important;
+  color: #ffffff !important;
+  overflow: visible !important;
+}
+
+.btn-particle-emit::before,
+.btn-particle-emit::after {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.btn-particle-emit::before {
+  animation: whiteWaveEmit 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.btn-particle-emit::after {
+  animation: whiteWaveEmit 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation-delay: 0.8s;
+}
+
+@keyframes windSway0 {
+  0%, 100% { transform: rotate(0deg) skewX(0deg); }
+  45% { transform: rotate(1.2deg) skewX(0.8deg); }
+  80% { transform: rotate(-0.8deg) skewX(-0.5deg); }
+}
+@keyframes windSway1 {
+  0%, 100% { transform: rotate(0deg) skewX(0deg); }
+  38% { transform: rotate(2.2deg) skewX(1.4deg); }
+  72% { transform: rotate(-1.5deg) skewX(-0.9deg); }
+}
+@keyframes windSway2 {
+  0%, 100% { transform: rotate(0deg) skewX(0deg); }
+  33% { transform: rotate(3.5deg) skewX(2.2deg); }
+  68% { transform: rotate(-2.5deg) skewX(-1.5deg); }
+}
+@keyframes windSway3 {
+  0%, 100% { transform: rotate(0deg) skewX(0deg); }
+  28% { transform: rotate(4.8deg) skewX(3.2deg); }
+  63% { transform: rotate(-3.5deg) skewX(-2.2deg); }
+}
+
+.animate-sway-layer0 {
+  transform-origin: bottom center;
+  animation: windSway0 13s ease-in-out infinite;
+}
+.animate-sway-layer1 {
+  transform-origin: bottom center;
+  animation: windSway1 11s ease-in-out infinite;
+}
+.animate-sway-layer2 {
+  transform-origin: bottom center;
+  animation: windSway2 9s ease-in-out infinite;
+}
+.animate-sway-layer3 {
+  transform-origin: bottom center;
+  animation: windSway3 7.5s ease-in-out infinite;
+}
+
+body {
+  background-color: #FCFAF6;
+  color: #1E293B;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+}
+
+/* --- Atmospheric Film Post-Processing & Treaters --- */
+
+@keyframes grainAnimation {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-0.5%, -0.8%); }
+  20% { transform: translate(-1%, 0.5%); }
+  30% { transform: translate(0.8%, -1%); }
+  40% { transform: translate(-0.5%, 0.8%); }
+  50% { transform: translate(1%, -0.5%); }
+  60% { transform: translate(-1%, 1%); }
+  70% { transform: translate(0.5%, 0.8%); }
+  80% { transform: translate(-0.8%, -1%); }
+  90% { transform: translate(0.5%, 0.5%); }
+}
+
+/* Lens chromatic aberration simulation (0.5px subtle color dispersion near details) */
+.subtle-chromatic-aberration {
+  text-shadow: 0.5px 0 0.1px rgba(239, 68, 68, 0.15), -0.5px 0 0.1px rgba(59, 130, 246, 0.15);
+}
+
+/* Warm, atmospheric memory bloom overlay - simulates soft summer lighting refraction */
+.summer-bloom-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 35%, rgba(255, 235, 185, 0.18) 0%, rgba(255, 255, 255, 0) 70%);
+  mix-blend-mode: screen;
+  z-index: 2;
+}
+
+/* Double-pass soft drop shadow for glowing/dreamlike bright areas without neon effect */
+.soft-bloom-glow {
+  filter: drop-shadow(0 0 15px rgba(255, 253, 240, 0.5)) drop-shadow(0 0 35px rgba(255, 245, 220, 0.25));
+}
+
+/* Radial Vignatting to mimic vintage lenses (subtle peach to grey vignette) */
+.vignette-atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, transparent 65%, rgba(220, 115, 80, 0.02) 85%, rgba(35, 45, 55, 0.07) 100%);
+  mix-blend-mode: multiply;
+  z-index: 9998;
+}
+
+@media (any-hover: hover) {
+  .custom-cursor-area {
+    cursor: none !important;
+  }
+}
+
+/* Staggered slow floating animations for background stars */
+@keyframes starFloatY1 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-55px); }
+}
+
+@keyframes starFloatY2 {
+  0%, 100% { transform: translateY(-50px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes starFloatY3 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-75px); }
+}
+
+.animate-star-float-1 {
+  animation: starFloatY1 3.8s ease-in-out infinite;
+}
+
+.animate-star-float-2 {
+  animation: starFloatY2 5.0s ease-in-out infinite;
+  animation-delay: -1.5s;
+}
+
+.animate-star-float-3 {
+  animation: starFloatY3 6.2s ease-in-out infinite;
+  animation-delay: -3.5s;
+}
+
+/* Swaying/shaking animations for the left and right pans when custom weight settles */
+@keyframes swayLeftPan {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(-5deg); }
+  30% { transform: rotate(4deg); }
+  45% { transform: rotate(-3deg); }
+  60% { transform: rotate(2deg); }
+  75% { transform: rotate(-1deg); }
+  90% { transform: rotate(0.5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes swayRightPan {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(5deg); }
+  30% { transform: rotate(-4deg); }
+  45% { transform: rotate(3deg); }
+  60% { transform: rotate(-2deg); }
+  75% { transform: rotate(1deg); }
+  90% { transform: rotate(-0.5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-sway-left {
+  transform-origin: 491px 513.5px;
+  animation: swayLeftPan 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.animate-sway-right {
+  transform-origin: 1938px 513.5px;
+  animation: swayRightPan 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* Hover opacity breathing effect for shapes */
+@keyframes hoverBreatheOpacity {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+
+/* Button glow pulse effect */
+@keyframes btnGlowPulse {
+  0%, 100% {
+    box-shadow: 0 0 6px rgb(50, 192, 185), 2px 2px 0px rgba(0,0,0,1);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow: 0 0 18px rgb(50, 192, 185), 2px 2px 0px rgba(0,0,0,1);
+    filter: brightness(1.15);
+  }
+}
+
+.animate-btn-glow {
+  animation: btnGlowPulse 1.8s ease-in-out infinite;
+}
+
+/* Center scaling for SVG shapes without jumping */
+.centered-svg-shape {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.25s ease, stroke-width 0.25s ease;
+}
+
+.centered-svg-shape:hover {
+  transform: scale(1.05);
+}
+
+@keyframes shapeBreathe {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px var(--glow-color)) drop-shadow(0 0 3px var(--glow-color-bright));
+    opacity: 0.82;
+  }
+  50% {
+    filter: drop-shadow(0 0 26px var(--glow-color)) drop-shadow(0 0 9px var(--glow-color-bright));
+    opacity: 1;
+  }
+}
+
+.shape-breathe-glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: shapeBreathe 2.2s ease-in-out infinite;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.25s ease;
+}
+
+.shape-breathe-glow:hover {
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 28px var(--glow-color)) drop-shadow(0 0 10px var(--glow-color-bright)) brightness(1.05);
+}
+
+.shape-glow-pink {
+  --glow-color: rgba(255, 184, 209, 0.7);
+  --glow-color-bright: rgba(255, 220, 230, 0.95);
+}
+
+.shape-glow-yellow {
+  --glow-color: rgba(253, 240, 138, 0.7);
+  --glow-color-bright: rgba(255, 253, 220, 0.95);
+}
+
+.shape-glow-blue {
+  --glow-color: rgba(50, 192, 185, 0.7);
+  --glow-color-bright: rgba(180, 250, 245, 0.95);
+}
+
+.shape-glow-white {
+  --glow-color: rgba(255, 255, 255, 0.85);
+  --glow-color-bright: rgba(255, 248, 220, 0.95);
+}
+
+.shape-glow-green {
+  --glow-color: rgba(160, 255, 190, 0.75);
+  --glow-color-bright: rgba(210, 255, 230, 0.95);
+}
+
+/* Subtle, weak shadow for tickets instead of harsh glow */
+.shape-glow-ticket {
+  --glow-color: rgba(28, 25, 22, 0.35);
+  --glow-color-bright: rgba(0, 0, 0, 0.15);
+}
+
+
+
+
