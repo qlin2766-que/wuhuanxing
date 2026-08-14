@@ -15,7 +15,7 @@ import magicalUrl from '../assets/sound/magical.mp3';
 
 let audioCtx: AudioContext | null = null;
 let isMutedGlobal = false;
-let activeBgmTrack: 'default' | 'portfolio' = 'default';
+let activeBgmTrack: 'default' | 'portfolio' = 'portfolio';
 let bgmAudio: HTMLAudioElement | null = null;
 let portfolioBgmAudio: HTMLAudioElement | null = null;
 let crtTvAudio: HTMLAudioElement | null = null;

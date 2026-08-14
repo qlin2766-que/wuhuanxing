@@ -810,14 +810,6 @@ export const ScenePortfolio: React.FC<ScenePortfolioProps> = ({ isEnglish, onEnt
     });
   }, []);
 
-  // Switch background music to Aquamarine Balance for portfolio scene only
-  useEffect(() => {
-    audioManager.switchBgmTrack('portfolio');
-    return () => {
-      audioManager.switchBgmTrack('default');
-    };
-  }, []);
-
   // Keyboard navigation for static portfolio slideshow
   useEffect(() => {
     if (!isSlideshowOpen) return;

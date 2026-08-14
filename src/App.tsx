@@ -136,6 +136,15 @@ export default function App() {
     }
   }, [currentScene, questionnaireProgress]);
 
+  // Synchronise active BGM track according to scene
+  useEffect(() => {
+    if (currentScene === 'portfolio') {
+      audioManager.switchBgmTrack('portfolio');
+    } else {
+      audioManager.switchBgmTrack('default');
+    }
+  }, [currentScene]);
+
   // Background music control based on mute state
   useEffect(() => {
     if (!isMuted) {
@@ -349,16 +358,36 @@ export default function App() {
 
       {/* Subtle bottom footer statement on Intro scene or when dialogue is minimized / already consumed */}
       {((currentScene === 'intro') || (isDialogueCompleted && currentScene !== 'portfolio' && currentScene !== 'menu' && currentScene !== 'scale_girl' && currentScene !== 'questionnaire' && currentScene !== 'wisdom_tooth' && currentScene !== 'heart_feather')) && (
-        <div className="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-40 text-center">
-          <button
-            onClick={handleNextScene}
-            className="px-6 py-2.5 bg-white hover:bg-stone-900 text-stone-900 hover:text-white border-2 border-stone-900 rounded-none font-mono text-xs font-black tracking-wider shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer flex items-center space-x-2 select-none group"
-            id="btn_narrative_bottom_action"
-          >
-            <span className="font-wenkai md:font-mono font-bold tracking-wide">
-              {currentScene === 'intro' ? (isEnglish ? 'RETURN TO PORTFOLIO (FRUIT) →' : '返回“果实”页面 →') : (isEnglish ? 'PROCEED TO NEXT STATION →' : '前往下一个车站 →')}
-            </span>
-          </button>
+        <div className="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-40 text-center pointer-events-auto">
+          {currentScene === 'intro' ? (
+            <motion.button
+              onClick={handleNextScene}
+              whileHover={{ 
+                scale: 1.03, 
+                backgroundColor: 'rgba(28, 25, 22, 1)' 
+              }}
+              whileTap={{ scale: 0.97 }}
+              className="px-5 py-2.5 bg-stone-900/95 hover:bg-stone-900 text-white rounded-md backdrop-blur-md font-sans text-xs md:text-[13px] tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-2 shadow-[0_4px_16px_rgba(0,0,0,0.12)] select-none border border-white/10 opacity-95 hover:opacity-100"
+              id="btn_narrative_bottom_action"
+            >
+              <span className="font-wenkai tracking-wider font-normal">
+                {isEnglish ? 'Return to Portfolio' : '返回“果实”页面'}
+              </span>
+              <span className="text-white/60 group-hover:text-white/90 text-xs font-mono transition-colors">
+                →
+              </span>
+            </motion.button>
+          ) : (
+            <button
+              onClick={handleNextScene}
+              className="px-6 py-2.5 bg-white hover:bg-stone-900 text-stone-900 hover:text-white border-2 border-stone-900 rounded-none font-mono text-xs font-black tracking-wider shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer flex items-center space-x-2 select-none group"
+              id="btn_narrative_bottom_action"
+            >
+              <span className="font-wenkai md:font-mono font-bold tracking-wide">
+                {isEnglish ? 'PROCEED TO NEXT STATION →' : '前往下一个车站 →'}
+              </span>
+            </button>
+          )}
         </div>
       )}
 

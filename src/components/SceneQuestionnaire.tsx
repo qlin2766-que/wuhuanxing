@@ -139,6 +139,17 @@ export const SceneQuestionnaire: React.FC<SceneQuestionnaireProps> = ({
 
   // Track if user has interacted with hotspots to dismiss the hint
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [isHintExpired, setIsHintExpired] = useState(false);
+
+  // Auto-dismiss the hint card after flashing a few times (~5.5 seconds)
+  useEffect(() => {
+    if (isSceneVisible && status === 'observing') {
+      const timer = setTimeout(() => {
+        setIsHintExpired(true);
+      }, 5500);
+      return () => clearTimeout(timer);
+    }
+  }, [isSceneVisible, status]);
 
   // Bicycle tire sound loop effect when a girl identity is selected
   useEffect(() => {
@@ -372,7 +383,7 @@ export const SceneQuestionnaire: React.FC<SceneQuestionnaireProps> = ({
 
           {/* Interactive Hotspots (Only enabled in observing state) */}
           {status === 'observing' && hotspots.map((h) => {
-            const isRandomHintTarget = h.id === randomHintHotspotId && !hasInteracted && !lockedHotspot;
+            const isRandomHintTarget = h.id === randomHintHotspotId && !hasInteracted && !lockedHotspot && !isHintExpired;
 
             return (
               <div
@@ -397,15 +408,33 @@ export const SceneQuestionnaire: React.FC<SceneQuestionnaireProps> = ({
                           initial={{ opacity: 0, x: -6, scale: 0.95 }}
                           animate={{ opacity: 1, x: 0, scale: 1 }}
                           exit={{ opacity: 0, x: 6, scale: 0.95 }}
-                          transition={{ duration: 0.4, ease: "easeOut" }}
+                          transition={{ duration: 0.5, ease: "easeOut" }}
                           className="absolute left-[88%] top-1/2 -translate-y-1/2 ml-1 z-30 pointer-events-none whitespace-nowrap"
                         >
-                          <div className="bg-white/75 backdrop-blur-md border border-stone-200/80 shadow-[0_4px_16px_rgba(0,0,0,0.06)] rounded-lg px-2.5 py-1.5 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-stone-500 animate-pulse" />
-                            <span className="font-wenkai text-[11px] md:text-xs text-stone-750 font-medium tracking-wider select-none">
+                          <motion.div 
+                            animate={{ 
+                              opacity: [0.35, 1, 0.35]
+                            }}
+                            transition={{
+                              repeat: Infinity,
+                              duration: 1.4,
+                              ease: "easeInOut"
+                            }}
+                            className="relative bg-white/85 backdrop-blur-md border border-stone-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.06)] rounded-lg px-2.5 py-1.5 flex items-center"
+                          >
+                            {/* Left triangular arrow pointing towards the hotspot */}
+                            <svg 
+                              className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-2 h-3.5 text-white/85 drop-shadow-[-1px_0_0_rgba(231,229,228,0.9)]" 
+                              viewBox="0 0 8 14" 
+                              fill="currentColor"
+                            >
+                              <path d="M8 1L1 7L8 13Z" />
+                            </svg>
+
+                            <span className="font-wenkai text-[11px] md:text-xs text-stone-750 font-medium tracking-wider select-none px-0.5">
                               {isEnglish ? 'Clickable observation point' : '可点击观察点'}
                             </span>
-                          </div>
+                          </motion.div>
                         </motion.div>
                       )}
                     </AnimatePresence>

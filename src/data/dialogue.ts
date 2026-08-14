@@ -157,22 +157,22 @@ export const DIALOGUE_SCRIPT: Record<string, DialogueLine[]> = {
       id: 'p1',
       speaker: '我',
       enSpeaker: 'Me',
-      text: '敬请期待物换星的续集。\n 创作仍然在继续。',
-      enText: 'Please stay tuned for the sequel to Wuhuanxing.\nThe creation continues.'
+      text: '这里保存着我完成的一些作品。',
+      enText: 'Here lie some of the works I have completed over the years.'
     },
     {
       id: 'p2',
       speaker: '我',
       enSpeaker: 'Me',
-      text: '这里保存着我完成的一些作品。',
-      enText: 'Here lie some of the works I have completed over the years.'
+      text: '它们来自不同的阶段，也使用不同的媒介。\n有的是课程项目，有的是实验，\n 也有一些仍在继续生长。',
+      enText: 'They come from different stages and use different mediums.\nSome are course projects, some are experiments,\nand some are still growing.'
     },
-    {
+        {
       id: 'p3',
       speaker: '我',
       enSpeaker: 'Me',
-      text: '它们来自不同的阶段，也使用不同的媒介。\n有的是课程项目，有的是实验，\n 也有一些仍在继续生长。',
-      enText: 'They come from different stages and use different mediums.\nSome are course projects, some are experiments,\nand some are still growing.'
+      text: '敬请期待物换星的续集。\n 创作仍然在继续。',
+      enText: 'Please stay tuned for the sequel to Wuhuanxing.\nThe creation continues.'
     }
   ]
 };
