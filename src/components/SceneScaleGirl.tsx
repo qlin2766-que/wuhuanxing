@@ -761,7 +761,7 @@ export const SceneScaleGirl: React.FC<SceneScaleGirlProps> = ({
   const targetPanForGuide = guideShape ? (guideShape.x > 1214.5 ? rightPanZone : leftPanZone) : null;
 
   return (
-    <div className="w-full h-screen max-h-[100dvh] flex flex-col items-center justify-center relative overflow-hidden select-none" id="scale_girl_scene" style={{ backgroundColor: '#3a4143', color: '#eef4ff', borderColor: '#6d6e7e' }}>
+    <div className="w-full h-screen max-h-[100dvh] bg-black flex flex-col items-center justify-center relative overflow-hidden select-none" id="scale_girl_scene">
       
       {/* Black screen overlay for line s1 ("没错，那个住在天平上的女孩就是我。") - fades out as soon as s1 is dismissed */}
       <div 
@@ -806,10 +806,6 @@ export const SceneScaleGirl: React.FC<SceneScaleGirlProps> = ({
           {/* Render Lottie player. Player link: assets.lottie.scaleBalanceTick.jsonUrl */}
         </div>
       ) : null}
-
-      {/* Background Grid Lines */}
-      <div className="absolute inset-x-0 top-1/4 h-px bg-stone-300 pointer-events-none" />
-      <div className="absolute inset-y-0 left-1/2 w-px bg-stone-300 pointer-events-none" />
 
       {/* Interactive Scale Canvas container - Adapts to viewport height & prevents vertical overflow */}
       <div className="w-full h-full max-h-screen flex items-center justify-center relative z-10 p-0 overflow-hidden">

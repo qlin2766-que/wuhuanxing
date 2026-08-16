@@ -61,23 +61,23 @@ const SCENE_COLORS: Record<SceneId, string> = {
 };
 
 const SCENE_LABELS_CN: Record<SceneId, string> = {
-  portfolio: '果实 · 结晶与作品集',
-  menu: '回到起点 · 初始的虚无',
-  questionnaire: '第一眼 · 凝视与视角',
-  scale_girl: '称量 · 承受的天平',
-  wisdom_tooth: '智齿 · 裂开的痛楚',
-  heart_feather: '看见 · 两个人的黑影',
-  intro: '初见 · 无重力世界'
+  portfolio: '果实',
+  menu: '主页',
+  questionnaire: '第一眼',
+  scale_girl: '称量',
+  wisdom_tooth: '智齿',
+  heart_feather: '看见',
+  intro: '初见'
 };
 
 const SCENE_LABELS_EN: Record<SceneId, string> = {
-  portfolio: 'Fruit · Crystallized Projects',
-  menu: 'Original State · Starvation Circle',
-  questionnaire: 'Glance · Gazing Perspectives',
-  scale_girl: 'Weighing · Burden of Scales',
-  wisdom_tooth: 'Tooth · Shattered Cords',
-  heart_feather: 'Seeing · Two Hand Silhouettes',
-  intro: 'Afloat · Gravity-Free World'
+  portfolio: 'Fruit',
+  menu: 'Home',
+  questionnaire: 'Glance',
+  scale_girl: 'Weighing',
+  wisdom_tooth: 'Tooth',
+  heart_feather: 'Seeing',
+  intro: 'Introduction'
 };
 
 export default function App() {
@@ -187,6 +187,8 @@ export default function App() {
           return (
             <SceneTransitionalBigText 
               isEnglish={isEnglish} 
+              chapterLabelCn="果实"
+              chapterLabelEn="FRUIT"
               onComplete={() => {
                 setPrologueProgress('completed');
               }}
@@ -241,8 +243,8 @@ export default function App() {
           return (
             <SceneTransitionalBigText 
               isEnglish={isEnglish}
-              chapterLabelCn="第二章 · 称量"
-              chapterLabelEn="CHAPTER 02 · WEIGHING"
+              chapterLabelCn="称量"
+              chapterLabelEn="WEIGHING"
               theme="dark"
               slides={[
                 {
