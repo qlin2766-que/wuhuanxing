@@ -45,16 +45,16 @@ export const LanguageHeader: React.FC<LanguageHeaderProps> = ({
     audioManager.playUI2();
   };
 
-  const isDarkScene = currentScene === 'menu' || currentScene === 'wisdom_tooth';
+  const isDarkScene = currentScene === 'wisdom_tooth' || currentScene === 'scale_girl';
 
   return (
     <header 
       className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-2.5 backdrop-blur-md transition-all duration-500" 
       id="header_nav" 
       style={{ 
-        backgroundColor: 'rgba(203, 240, 237, 0.35)', 
-        borderBottom: '1.1px solid rgba(203, 240, 237, 0.2)',
-        boxShadow: '0 2px 10px -4px rgba(0,0,0,0.06)'
+        backgroundColor: isDarkScene ? 'rgba(0, 0, 0, 0.65)' : 'rgba(203, 240, 237, 0.35)', 
+        borderBottom: isDarkScene ? '1.1px solid rgba(255, 255, 255, 0.08)' : '1.1px solid rgba(203, 240, 237, 0.2)',
+        boxShadow: isDarkScene ? '0 2px 10px -4px rgba(0,0,0,0.5)' : '0 2px 10px -4px rgba(0,0,0,0.06)'
       }}
     >
       {/* Brand Title with Menu Return Button */}
@@ -74,10 +74,10 @@ export const LanguageHeader: React.FC<LanguageHeaderProps> = ({
           />
         </div>
         <div className="flex flex-col">
-          <span className="text-[10px] md:text-xs font-mono font-black tracking-widest leading-none block uppercase text-stone-850">
+          <span className={`text-[10px] md:text-xs font-mono font-black tracking-widest leading-none block uppercase ${isDarkScene ? 'text-stone-200' : 'text-stone-850'}`}>
             WUHUANXING
           </span>
-          <span className="text-[9px] font-mono tracking-wider uppercase hidden sm:block mt-1 text-stone-500">
+          <span className={`text-[9px] font-mono tracking-wider uppercase hidden sm:block mt-1 ${isDarkScene ? 'text-stone-400' : 'text-stone-500'}`}>
             / 个人作品集网站
           </span>
         </div>
@@ -102,7 +102,11 @@ export const LanguageHeader: React.FC<LanguageHeaderProps> = ({
               onMouseLeave={() => setHoveredScene(null)}
               className="group relative text-[11px] md:text-xs font-serif font-bold tracking-wider px-3.5 md:px-4 py-1.5 md:py-2 cursor-pointer flex items-center justify-center transition-all duration-200 whitespace-nowrap"
               style={{
-                color: isActive ? '#ffffff' : (isHovered ? '#1c1916' : 'rgba(28, 25, 22, 0.55)'),
+                color: isActive 
+                  ? '#ffffff' 
+                  : (isHovered 
+                    ? (isDarkScene ? '#ffffff' : '#1c1916') 
+                    : (isDarkScene ? 'rgba(255, 255, 255, 0.65)' : 'rgba(28, 25, 22, 0.55)')),
               }}
               title={isEnglish ? name.en : name.cn}
             >
@@ -129,13 +133,13 @@ export const LanguageHeader: React.FC<LanguageHeaderProps> = ({
           onClick={handleGlobeClick}
           className="px-2.5 py-1 rounded transition-all font-mono text-[9px] font-bold flex items-center space-x-1.5 cursor-pointer border"
           style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.65)',
-            borderColor: 'rgba(28, 25, 22, 0.12)',
-            color: '#1c1916'
+            backgroundColor: isDarkScene ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.65)',
+            borderColor: isDarkScene ? 'rgba(255, 255, 255, 0.2)' : 'rgba(28, 25, 22, 0.12)',
+            color: isDarkScene ? '#f5f5f4' : '#1c1916'
           }}
           title={isEnglish ? "Switch to Chinese" : "切换为英文"}
         >
-          <Globe size={11} className="text-stone-600" />
+          <Globe size={11} className={isDarkScene ? "text-stone-300" : "text-stone-600"} />
           <span>{isEnglish ? "EN" : "CN"}</span>
         </button>
 
@@ -144,9 +148,9 @@ export const LanguageHeader: React.FC<LanguageHeaderProps> = ({
           onClick={toggleMute}
           className="p-1.5 rounded transition-all flex items-center justify-center cursor-pointer border"
           style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.65)',
-            borderColor: 'rgba(28, 25, 22, 0.12)',
-            color: '#1c1916'
+            backgroundColor: isDarkScene ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.65)',
+            borderColor: isDarkScene ? 'rgba(255, 255, 255, 0.2)' : 'rgba(28, 25, 22, 0.12)',
+            color: isDarkScene ? '#f5f5f4' : '#1c1916'
           }}
           title={isMuted ? "Unmute Ambient sound" : "Mute Sound"}
         >

@@ -17,8 +17,10 @@ import { assets } from '../utils/assets';
 
 interface SceneIntroProps {
   isEnglish: boolean;
+  isDialogueCompleted?: boolean;
   onDialogueComplete?: () => void;
   onReturnToPortfolio?: () => void;
+  onIntroSequenceComplete?: () => void;
 }
 
 interface FactNode {
@@ -38,65 +40,60 @@ interface FactNode {
   enSummary?: string;
 }
 
-export const SceneIntro: React.FC<SceneIntroProps> = ({ isEnglish, onDialogueComplete, onReturnToPortfolio }) => {
+export const SceneIntro: React.FC<SceneIntroProps> = ({ 
+  isEnglish, 
+  isDialogueCompleted = false,
+  onDialogueComplete, 
+  onReturnToPortfolio,
+  onIntroSequenceComplete
+}) => {
   const [activeFactId, setActiveFactId] = useState<string>('about');
   const [hoveredBlob, setHoveredBlob] = useState<string | null>(null);
-
-  // Live customizable avatar system
-  const [customAvatar, setCustomAvatar] = useState<string>(() => {
-    return localStorage.getItem('qlin_custom_avatar') || '';
-  });
-
-  // Floating Narrative Bubbles State and Sequential Auto-play
   const [bubbleExpanded, setBubbleExpanded] = useState<'encounter' | 'project' | null>(null);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   const cancelAutoPlayAndComplete = () => {
     setIsAutoPlaying(false);
-    if (onDialogueComplete) {
-      onDialogueComplete();
+    if (onIntroSequenceComplete) {
+      onIntroSequenceComplete();
     }
   };
 
+  // Sequential auto-expansion of i1 ("你好") and i2 ("物换星") after dialogue is completed
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isDialogueCompleted || !isAutoPlaying) return;
 
-    // Expand first bubble at 800ms
+    // Expand first bubble at 600ms
     const t1 = setTimeout(() => {
       setBubbleExpanded('encounter');
       audioManager.playWaterDrop();
-    }, 800);
+    }, 600);
 
-    // Expand second bubble at 6000ms
+    // Expand second bubble at 5500ms
     const t2 = setTimeout(() => {
       setBubbleExpanded('project');
       audioManager.playWaterDrop();
-    }, 6000);
+    }, 5500);
 
-    // Complete and close both bubbles at 11500ms
+    // Complete and close both bubbles at 10500ms, then reveal the return button
     const t3 = setTimeout(() => {
       setBubbleExpanded(null);
-      if (onDialogueComplete) {
-        onDialogueComplete();
+      if (onIntroSequenceComplete) {
+        onIntroSequenceComplete();
       }
-    }, 11500);
+    }, 10500);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
     };
-  }, [isAutoPlaying, onDialogueComplete]);
+  }, [isDialogueCompleted, isAutoPlaying, onIntroSequenceComplete]);
 
-  const handleBubbleSelect = (id: 'encounter' | 'project') => {
-    cancelAutoPlayAndComplete();
-    audioManager.playChime();
-    if (bubbleExpanded === id) {
-      setBubbleExpanded(null);
-    } else {
-      setBubbleExpanded(id);
-    }
-  };
+  // Live customizable avatar system
+  const [customAvatar, setCustomAvatar] = useState<string>(() => {
+    return localStorage.getItem('qlin_custom_avatar') || '';
+  });
   
   // Anchor coordinates that stay perfectly locked to prevent drifting out of screen
   // Configured safely inside a 440x300 viewBox with generous spacing for 1.3x enlarged bubbles
@@ -707,10 +704,10 @@ export const SceneIntro: React.FC<SceneIntroProps> = ({ isEnglish, onDialogueCom
         </div>
       </section>
 
-      {/* Floating Narrative Bubbles Overlay - Slowly drifting across the page */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-40">
+      {/* Floating Narrative Bubbles Overlay for i1 ("你好") and i2 ("物换星") */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-30">
         
-        {/* Bubble 1: Encounter ("你好") */}
+        {/* Bubble 1: Encounter ("你好" / i1) */}
         <motion.div
           className="absolute left-[6%] md:left-[10%] top-[12%] sm:top-[16%] pointer-events-auto flex flex-col items-center"
           animate={{ 
@@ -727,6 +724,7 @@ export const SceneIntro: React.FC<SceneIntroProps> = ({ isEnglish, onDialogueCom
             cancelAutoPlayAndComplete();
             setBubbleExpanded('encounter');
             setHoveredBlob('narrative-encounter');
+            audioManager.playWaterDrop();
           }}
           onMouseLeave={() => {
             setBubbleExpanded(null);
@@ -764,8 +762,8 @@ export const SceneIntro: React.FC<SceneIntroProps> = ({ isEnglish, onDialogueCom
               >
                 <p className="text-xs sm:text-[13px] text-stone-800 leading-relaxed font-wenkai tracking-wide select-text">
                   {isEnglish 
-                    ? "Hello, I am Lin, currently studying New Media Art at the Communication University of China. My creations mainly revolve around games, interactive websites, motion graphics, and digital media, hoping that technology serves not only functions but also becomes a part of expression."
-                    : "你好，我是林，目前就读于中国传媒大学新媒体艺术专业。我的创作通常围绕游戏、交互网页、动态影像与数字媒介展开。我喜欢把抽象的感受转换成能够被体验的交互，希望技术不仅服务于功能，也能够成为表达的一部分。"
+                    ? "Hello, I am Lin, studying New Media Art at Communication University of China. My work revolves around games, interactive web, motion graphics, and digital media, hoping technology serves not only function, but also as part of expression."
+                    : "你好，我是林，目前就读于中国传媒大学新媒体艺术专业。我的创作主要围绕游戏、交互网页、动态影像与数字媒介展开，希望让技术不仅服务于功能，也成为表达的一部分。"
                   }
                 </p>
               </motion.div>
@@ -773,7 +771,7 @@ export const SceneIntro: React.FC<SceneIntroProps> = ({ isEnglish, onDialogueCom
           </AnimatePresence>
         </motion.div>
 
-        {/* Bubble 2: Project ("物换星") */}
+        {/* Bubble 2: Project ("物换星" / i2) */}
         <motion.div
           className="absolute right-[22%] md:right-[34%] top-[14%] sm:top-[18%] pointer-events-auto flex flex-col items-center"
           animate={{ 
@@ -791,6 +789,7 @@ export const SceneIntro: React.FC<SceneIntroProps> = ({ isEnglish, onDialogueCom
             cancelAutoPlayAndComplete();
             setBubbleExpanded('project');
             setHoveredBlob('narrative-project');
+            audioManager.playWaterDrop();
           }}
           onMouseLeave={() => {
             setBubbleExpanded(null);
@@ -828,7 +827,7 @@ export const SceneIntro: React.FC<SceneIntroProps> = ({ isEnglish, onDialogueCom
               >
                 <p className="text-xs sm:text-[13px] text-stone-800 leading-relaxed font-wenkai tracking-wide select-text">
                   {isEnglish 
-                    ? '"Wuhuanxing" was originally a visual novel. Due to the large scale of the project, I reorganized part of it into this interactive web page. It is both a story and my portfolio.'
+                    ? '"Wuhuanxing" was originally a visual novel. Due to the project size, I reorganized part of it into this interactive webpage. It is both a story and my portfolio.'
                     : "《物换星》最初是一部视觉小说。由于项目规模较大，我将其中的一部分重新整理，制作成了现在这个交互网页。它既是一段故事，也是我的作品集。"
                   }
                 </p>

@@ -28,6 +28,7 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
   const [step, setStep] = useState<number>(0);
   const [isToothHovered, setIsToothHovered] = useState<boolean>(false);
   const [hasTappedTooth, setHasTappedTooth] = useState<boolean>(false);
+  const [hasToothachePlayedOnce, setHasToothachePlayedOnce] = useState<boolean>(false);
   const [scaleTilt, setScaleTilt] = useState<number>(0);
   const [leftPanSway, setLeftPanSway] = useState<number>(0);
   const [rightPanSway, setRightPanSway] = useState<number>(0);
@@ -260,8 +261,12 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
       if (step < 3) {
         setStep(prev => prev + 1);
       } else {
-        // Step 3 completed -> Tooth dropping animation
-        setStage('tooth_dropping');
+        // Step 3 completed -> Tooth dropping animation if video played once or skip used
+        if (hasToothachePlayedOnce) {
+          setStage('tooth_dropping');
+        } else {
+          // If video is still on first play, user can wait or click SKIP
+        }
       }
     } else if (stage === 'scale_dialogue') {
       if (step < 5) {
@@ -281,7 +286,7 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
     } else if (stage === 'fairy_loop') {
       if (onComplete) onComplete();
     }
-  }, [stage, step, hasTappedTooth, onComplete]);
+  }, [stage, step, hasTappedTooth, hasToothachePlayedOnce, onComplete]);
 
   // Auto-play dialogue timer (slower rate: 4.2s delay after typed text completes)
   useEffect(() => {
@@ -297,7 +302,7 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
 
     if (typedText.length === fullText.length && fullText.length > 0) {
       const canAutoAdvance = 
-        stage === 'toothache' ||
+        (stage === 'toothache' && (step < 3 || hasToothachePlayedOnce)) ||
         stage === 'scale_dialogue' ||
         stage === 'search_dialogue' ||
         (stage === 'tooth_loop' && hasTappedTooth) ||
@@ -315,7 +320,7 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
         clearTimeout(autoAdvanceTimerRef.current);
       }
     };
-  }, [typedText, step, stage, hasTappedTooth, isEnglish, handleAdvanceDialogue]);
+  }, [typedText, step, stage, hasTappedTooth, hasToothachePlayedOnce, isEnglish, handleAdvanceDialogue]);
 
   // Handle clicking the interactive tooth in tooth_loop stage
   const handleToothClick = (e: React.MouseEvent) => {
@@ -339,24 +344,52 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
 
   return (
     <div 
-      className="w-full h-screen bg-[#0d1412] flex items-center justify-center relative overflow-hidden select-none" 
+      className="w-full h-[calc(100dvh-48px)] mt-[48px] bg-black flex flex-col justify-end items-center relative overflow-hidden select-none" 
       id="wisdom_tooth_scene"
     >
       {/* Main Full-Screen Theater Stage */}
-      <div className="w-full h-full relative flex items-center justify-center overflow-hidden">
+      <div className="w-full h-full max-h-full max-w-full relative flex items-end justify-center overflow-hidden">
         
         {/* ================= STAGE 1: Toothache Video ================= */}
-        <div className={`absolute inset-0 w-full h-full transition-opacity duration-700 flex items-center justify-center ${stage === 'toothache' ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}>
+        <div className={`absolute inset-0 w-full h-full transition-opacity duration-700 flex items-end justify-center ${stage === 'toothache' ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}>
           <video
             ref={videoToothacheRef}
-            loop
             muted
             playsInline
             preload="auto"
-            className="w-full h-full object-contain pointer-events-none"
+            className="w-full h-full max-h-full max-w-full object-contain object-bottom pointer-events-none"
+            onEnded={() => {
+              setHasToothachePlayedOnce(true);
+              if (videoToothacheRef.current) {
+                videoToothacheRef.current.currentTime = 0;
+                videoToothacheRef.current.play().catch(() => {});
+              }
+            }}
+            onTimeUpdate={() => {
+              if (videoToothacheRef.current && videoToothacheRef.current.duration > 0) {
+                if (videoToothacheRef.current.currentTime >= videoToothacheRef.current.duration - 0.3) {
+                  setHasToothachePlayedOnce(true);
+                }
+              }
+            }}
           >
             <source src="/src/assets/video/ani2_牙痛.webm" type="video/webm" />
           </video>
+
+          {/* Toothache Stage Skip Button */}
+          {stage === 'toothache' && (
+            <div className="absolute bottom-6 right-6 z-30">
+              <button
+                onClick={() => {
+                  setHasToothachePlayedOnce(true);
+                  setStage('tooth_dropping');
+                }}
+                className="px-5 py-2 bg-black/50 hover:bg-white/15 active:scale-95 text-stone-200 border border-white/10 rounded-full font-sans text-xs font-black tracking-widest shadow-xl backdrop-blur-md transition-all duration-300 cursor-pointer"
+              >
+                {isEnglish ? 'SKIP' : '跳过'}
+              </button>
+            </div>
+          )}
         </div>
 
         {/* ================= STAGE 2: Tooth Dropping Black Screen Animation (No Dialogue Box) ================= */}
@@ -387,12 +420,12 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
           const rightPivot = getRotatedPoint(1938, 513.5, 1214.5, 513.5, scaleTilt);
 
           return (
-            <div className="absolute inset-0 bg-[#0a0d0c] z-20 flex items-center justify-center overflow-hidden">
+            <div className="absolute inset-0 bg-black z-20 flex items-end justify-center overflow-hidden">
               <div className="absolute inset-0 bg-radial-gradient from-teal-900/20 via-transparent to-black pointer-events-none" />
 
-              {/* Full Scale SVG Container matching SceneScaleGirl (shifted downwards) */}
-              <div className="w-full aspect-[2388/1668] max-w-[1200px] relative flex items-center justify-center p-4 translate-y-12 md:translate-y-16">
-                <svg className="w-full h-full select-none" viewBox="0 0 2388 1668">
+              {/* Full Scale SVG Container matching SceneScaleGirl height fitting */}
+              <div className="relative h-full max-h-full max-w-full aspect-[2388/1668] flex items-end justify-center p-0">
+                <svg className="w-full h-full max-h-full max-w-full select-none" viewBox="0 0 2388 1668" preserveAspectRatio="xMidYMax meet">
                   {/* 1. 秤后星星3, 2, 1 */}
                   <image href="/src/assets/images/秤后星星3.png" x="0" y="0" width="2388" height="1668" pointerEvents="none" className="animate-star-float-3" />
                   <image href="/src/assets/images/秤后星星2.png" x="0" y="0" width="2388" height="1668" pointerEvents="none" className="animate-star-float-2" />
@@ -469,20 +502,20 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
         )}
 
         {/* ================= STAGE 7: Second Tooth Loop Animation ================= */}
-        <div className={`absolute inset-0 w-full h-full transition-opacity duration-700 flex items-center justify-center ${stage === 'tooth_loop' ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}>
+        <div className={`absolute inset-0 w-full h-full transition-opacity duration-700 flex items-end justify-center ${stage === 'tooth_loop' ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}>
           <video
             ref={videoLoopRef}
             loop
             muted
             playsInline
             preload="auto"
-            className="absolute inset-0 w-full h-full object-contain pointer-events-none"
+            className="absolute inset-0 w-full h-full max-h-full max-w-full object-contain object-bottom pointer-events-none"
           >
             <source src="/src/assets/video/ani3-智齿循环动画.webm" type="video/webm" />
           </video>
 
           {/* Interactive Tooth Element Container (Spans exact video width for seamless tap target) */}
-          <div className="relative w-full max-w-[100vh] aspect-video flex flex-col items-center justify-center">
+          <div className="relative h-full max-h-full max-w-full aspect-video flex flex-col items-center justify-center">
             {!hasTappedTooth && (
               <div className="absolute top-12 z-30 bg-white/20 backdrop-blur-sm border border-white/10 px-5 py-1.5 rounded-full text-stone-200/90 font-sans font-bold text-xs tracking-[0.2em] shadow-sm animate-pulse flex items-center space-x-2 pointer-events-none">
                 <GuidePoint isSelected={isToothHovered} sizeClassName="w-5 h-5" />
@@ -505,13 +538,13 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
         </div>
 
         {/* ================= STAGE 8: Birth Video ================= */}
-        <div className={`absolute inset-0 w-full h-full transition-opacity duration-300 flex items-center justify-center ${stage === 'birth_video' ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}>
+        <div className={`absolute inset-0 w-full h-full transition-opacity duration-300 flex items-end justify-center ${stage === 'birth_video' ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}>
           <video
             ref={videoBirthRef}
             muted
             playsInline
             preload="auto"
-            className="w-full h-full object-contain pointer-events-none"
+            className="w-full h-full max-h-full max-w-full object-contain object-bottom pointer-events-none"
             onEnded={() => {
               setStage('fairy_loop');
               setStep(8);
@@ -520,13 +553,13 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
             <source src="/src/assets/video/ani4-智齿女孩诞生.webm" type="video/webm" />
           </video>
           
-          <div className="absolute bottom-8 right-8 z-25">
+          <div className="absolute bottom-6 right-6 z-30">
             <button
               onClick={() => {
                 setStage('fairy_loop');
                 setStep(8);
               }}
-              className="px-5 py-2 bg-black/40 hover:bg-white/15 active:scale-95 text-stone-200 border border-white/10 rounded-full font-sans text-xs font-black tracking-widest shadow-xl backdrop-blur-md transition-all duration-300 cursor-pointer"
+              className="px-5 py-2 bg-black/50 hover:bg-white/15 active:scale-95 text-stone-200 border border-white/10 rounded-full font-sans text-xs font-black tracking-widest shadow-xl backdrop-blur-md transition-all duration-300 cursor-pointer"
             >
               {isEnglish ? 'SKIP' : '跳过'}
             </button>
@@ -534,14 +567,14 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
         </div>
 
         {/* ================= STAGE 9: Fairy Hovering Loop ================= */}
-        <div className={`absolute inset-0 w-full h-full transition-opacity duration-700 flex items-center justify-center ${stage === 'fairy_loop' ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}>
+        <div className={`absolute inset-0 w-full h-full transition-opacity duration-700 flex items-end justify-center ${stage === 'fairy_loop' ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}>
           <video
             ref={videoFairyBgRef}
             loop
             muted
             playsInline
             preload="auto"
-            className="absolute inset-0 w-full h-full object-contain pointer-events-none"
+            className="absolute inset-0 w-full h-full max-h-full max-w-full object-contain object-bottom pointer-events-none"
           >
             <source src="/src/assets/video/ani3-智齿循环动画.webm" type="video/webm" />
           </video>
@@ -552,7 +585,7 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
             muted
             playsInline
             preload="auto"
-            className="w-full h-full object-contain relative z-20 pointer-events-none"
+            className="w-full h-full max-h-full max-w-full object-contain object-bottom relative z-20 pointer-events-none"
           >
             <source src="/src/assets/video/ani5-妖精悬浮循环.webm" type="video/webm" />
           </video>
@@ -569,7 +602,7 @@ export const SceneWisdomTooth: React.FC<SceneWisdomToothProps> = ({
       {showDialogueBox && (
         <div 
           onClick={handleAdvanceDialogue}
-          className="fixed top-[72%] md:top-[74%] left-1/2 -translate-x-1/2 -translate-y-1/2 scale-105 md:scale-110 w-[88vw] max-w-[560px] aspect-[907/484] z-50 select-none animate-fade-in pointer-events-auto cursor-pointer filter drop-shadow-xl flex flex-col items-center justify-center p-6 md:p-10 text-center group"
+          className="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 scale-100 md:scale-105 w-[90vw] max-w-[540px] aspect-[907/484] z-50 select-none animate-fade-in pointer-events-auto cursor-pointer filter drop-shadow-xl flex flex-col items-center justify-center p-6 md:p-8 text-center group"
           id="wisdom_tooth_dialogue_box"
         >
           {/* Dialogue PNG Frame */}

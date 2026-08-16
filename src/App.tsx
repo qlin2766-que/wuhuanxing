@@ -94,6 +94,7 @@ export default function App() {
   const [isMuted, setIsMuted] = useState<boolean>(false); // Starts muted by default for general compliance, easily toggled in UI
   const [dialogueFinishedScenes, setDialogueFinishedScenes] = useState<string[]>([]);
   const [currentDialogueLineId, setCurrentDialogueLineId] = useState<string>('');
+  const [isIntroSequenceFinished, setIsIntroSequenceFinished] = useState<boolean>(false);
 
   // Smooth architectural scene transition interceptor
   const setCurrentScene = (nextSceneVal: SceneId | ((prev: SceneId) => SceneId)) => {
@@ -283,7 +284,9 @@ export default function App() {
         return (
           <SceneIntro 
             isEnglish={isEnglish} 
+            isDialogueCompleted={isDialogueCompleted}
             onDialogueComplete={handleSceneDialogueComplete}
+            onIntroSequenceComplete={() => setIsIntroSequenceFinished(true)}
             onReturnToPortfolio={() => {
               setCurrentScene('portfolio');
             }}
@@ -299,7 +302,7 @@ export default function App() {
 
   // Determine app-level background color based on active scene
   const getSceneBgClass = () => {
-    if (currentScene === 'scale_girl') return 'bg-black';
+    if (currentScene === 'scale_girl' || currentScene === 'wisdom_tooth') return 'bg-black';
     if (currentScene === 'menu') return 'bg-[#1a1e1e]';
     if (currentScene === 'portfolio') return 'bg-[#effffb]';
     return 'bg-[#FCFAF6]';
@@ -342,14 +345,14 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      {/* Floating Dialogue Console Layer (Hides on start menu, intro, during big text screens, and before questionnaire completes) */}
-      {currentScene !== 'menu' && currentScene !== 'intro' && !isDialogueCompleted && activeDialogueLines.length > 0 && !(currentScene === 'portfolio' && prologueProgress !== 'completed') && !(currentScene === 'questionnaire' && questionnaireProgress !== 'completed') && !(currentScene === 'scale_girl' && scaleGirlProgress !== 'completed') && (
+      {/* Floating Dialogue Console Layer (Hides on start menu, during big text screens, and before questionnaire completes) */}
+      {currentScene !== 'menu' && !isDialogueCompleted && activeDialogueLines.length > 0 && !(currentScene === 'portfolio' && prologueProgress !== 'completed') && !(currentScene === 'questionnaire' && questionnaireProgress !== 'completed') && !(currentScene === 'scale_girl' && scaleGirlProgress !== 'completed') && (
         <NovelFrame
           key={currentScene}
           lines={activeDialogueLines}
           isEnglish={isEnglish}
           onSceneComplete={handleSceneDialogueComplete}
-          onNextChapter={currentScene === 'portfolio' ? undefined : handleNextScene}
+          onNextChapter={currentScene === 'portfolio' ? undefined : (currentScene === 'intro' ? () => setCurrentScene('portfolio') : handleNextScene)}
           isCentered={currentScene === 'questionnaire'}
           onLineChange={(_idx, line) => setCurrentDialogueLineId(line.id)}
           isDark={currentScene === 'scale_girl'}
@@ -357,10 +360,13 @@ export default function App() {
       )}
 
       {/* Subtle bottom footer statement on Intro scene or when dialogue is minimized / already consumed */}
-      {((currentScene === 'intro') || (isDialogueCompleted && currentScene !== 'portfolio' && currentScene !== 'menu' && currentScene !== 'scale_girl' && currentScene !== 'questionnaire' && currentScene !== 'wisdom_tooth' && currentScene !== 'heart_feather')) && (
+      {(((currentScene === 'intro' && isDialogueCompleted && isIntroSequenceFinished)) || (isDialogueCompleted && currentScene !== 'portfolio' && currentScene !== 'menu' && currentScene !== 'scale_girl' && currentScene !== 'questionnaire' && currentScene !== 'wisdom_tooth' && currentScene !== 'heart_feather')) && (
         <div className="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-40 text-center pointer-events-auto">
           {currentScene === 'intro' ? (
             <motion.button
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 0.95, y: 0 }}
+              transition={{ duration: 0.4 }}
               onClick={handleNextScene}
               whileHover={{ 
                 scale: 1.03, 

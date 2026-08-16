@@ -33,18 +33,11 @@ export const DIALOGUE_SCRIPT: Record<string, DialogueLine[]> = {
   ],
   intro: [
     {
-      id: 'i1',
+      id: 'i3',
       speaker: '我',
       enSpeaker: 'Me',
-      text: '你好，我是林，目前就读于中国传媒大学新媒体艺术专业。\n我的创作主要围绕游戏、交互网页、动态影像与数字媒介展开，希望让技术不仅服务于功能，也成为表达的一部分。',
-      enText: 'Hello, I am Lin, studying New Media Art at Communication University of China.\nMy work revolves around games, interactive web, motion graphics, and digital media,\nhoping technology serves not only function, but also as part of expression.'
-    },
-    {
-      id: 'i2',
-      speaker: '我',
-      enSpeaker: 'Me',
-      text: '《物换星》最初是一部视觉小说。\n由于项目规模较大，我将其中的一部分重新整理，制作成了现在这个交互网页。\n它既是一段故事，也是我的作品集。',
-      enText: '"Wuhuanxing" was originally a visual novel.\nDue to the project size, I reorganized part of it into this interactive webpage.\nIt is both a story and my portfolio.'
+      text: '敬请期待物换星的续集。\n 创作仍然在继续。',
+      enText: 'Please stay tuned for the sequel to Wuhuanxing.\nThe creation continues.'
     }
   ],
   questionnaire: [
@@ -166,13 +159,6 @@ export const DIALOGUE_SCRIPT: Record<string, DialogueLine[]> = {
       enSpeaker: 'Me',
       text: '它们来自不同的阶段，也使用不同的媒介。\n有的是课程项目，有的是实验，\n 也有一些仍在继续生长。',
       enText: 'They come from different stages and use different mediums.\nSome are course projects, some are experiments,\nand some are still growing.'
-    },
-        {
-      id: 'p3',
-      speaker: '我',
-      enSpeaker: 'Me',
-      text: '敬请期待物换星的续集。\n 创作仍然在继续。',
-      enText: 'Please stay tuned for the sequel to Wuhuanxing.\nThe creation continues.'
     }
   ]
 };

@@ -761,7 +761,7 @@ export const SceneScaleGirl: React.FC<SceneScaleGirlProps> = ({
   const targetPanForGuide = guideShape ? (guideShape.x > 1214.5 ? rightPanZone : leftPanZone) : null;
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center relative overflow-hidden select-none" id="scale_girl_scene" style={{ backgroundColor: '#3a4143', color: '#eef4ff', borderColor: '#6d6e7e' }}>
+    <div className="w-full h-screen max-h-[100dvh] flex flex-col items-center justify-center relative overflow-hidden select-none" id="scale_girl_scene" style={{ backgroundColor: '#3a4143', color: '#eef4ff', borderColor: '#6d6e7e' }}>
       
       {/* Black screen overlay for line s1 ("没错，那个住在天平上的女孩就是我。") - fades out as soon as s1 is dismissed */}
       <div 
@@ -772,14 +772,6 @@ export const SceneScaleGirl: React.FC<SceneScaleGirlProps> = ({
         }`}
       />
 
-      {/* Editorial Vertical Right Banners (from screenshots) */}
-      <div className="absolute right-8 top-1/2 -translate-y-1/2 hidden xl:flex flex-col items-center select-none z-30">
-        <span className="font-mono text-[8px] text-stone-400 tracking-wider mb-1">[ MEASURE INTERACTIVE ]</span>
-        <div className="w-px h-12 bg-stone-300 mb-2" />
-        <div className="border border-sky-200 bg-sky-50/80 backdrop-blur-md text-sky-700 font-sans text-[9px] py-4 px-2 [writing-mode:vertical-rl] tracking-[0.25em] font-bold shadow-[2px_2px_10px_rgba(56,189,248,0.15)] rounded">
-          TACTILE SCALE // WEIGHING
-        </div>
-      </div>
 
       {/* ==================================================================== */}
       {/* PLACEHOLDER: WEB M VIDEO BACKGROUND LAYER */}
@@ -819,16 +811,17 @@ export const SceneScaleGirl: React.FC<SceneScaleGirlProps> = ({
       <div className="absolute inset-x-0 top-1/4 h-px bg-stone-300 pointer-events-none" />
       <div className="absolute inset-y-0 left-1/2 w-px bg-stone-300 pointer-events-none" />
 
-      {/* Interactive Scale Canvas container */}
-      <div className="w-full bg-transparent border-0 p-0 flex flex-col items-center relative z-10 shadow-none rounded-none">
+      {/* Interactive Scale Canvas container - Adapts to viewport height & prevents vertical overflow */}
+      <div className="w-full h-full max-h-screen flex items-center justify-center relative z-10 p-0 overflow-hidden">
         
-        {/* Dynamic Interactive SVG Canvas */}
-        <div className="w-full aspect-[2388/1668] relative">
+        {/* Dynamic Interactive SVG Canvas - height-constrained aspect box */}
+        <div className="relative h-full max-h-full max-w-full aspect-[2388/1668] flex items-center justify-center">
           
           <svg 
-            className="w-full h-full select-none" 
+            className="w-full h-full max-h-full max-w-full select-none" 
             style={{ borderColor: '#373746' }}
             viewBox="0 0 2388 1668"
+            preserveAspectRatio="xMidYMid meet"
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerLeave={handlePointerUp}
