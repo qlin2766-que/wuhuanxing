@@ -1,11 +1,23 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import {cpSync} from 'fs';
 import path from 'path';
 import {defineConfig} from 'vite';
 
+const preserveRuntimeAssetPaths = () => ({
+  name: 'preserve-runtime-asset-paths',
+  closeBundle() {
+    cpSync(
+      path.resolve(__dirname, 'src/assets'),
+      path.resolve(__dirname, 'dist/src/assets'),
+      {recursive: true},
+    );
+  },
+});
+
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), preserveRuntimeAssetPaths()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
