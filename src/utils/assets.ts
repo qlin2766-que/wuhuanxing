@@ -304,6 +304,22 @@ export const assets: AssetRegistry = {
           '/src/assets/作品集/物换星/物换星10.png',
         ],
       },
+      iteration: {
+        cardImageSrc: '/src/assets/作品集/迭代/迭代-01.png',
+        detailImageSrc: '/src/assets/作品集/迭代/迭代-01.png',
+        videoEmbedEnabled: false,
+        videoEmbedUrl: '',
+        staticPortfolioImages: [
+          '/src/assets/作品集/迭代/迭代-01.png',
+          '/src/assets/作品集/迭代/迭代-02.png',
+          '/src/assets/作品集/迭代/迭代-03.png',
+          '/src/assets/作品集/迭代/迭代-04.png',
+          '/src/assets/作品集/迭代/迭代-05.png',
+          '/src/assets/作品集/迭代/迭代-06.png',
+          '/src/assets/作品集/迭代/迭代-07.png',
+          '/src/assets/作品集/迭代/迭代-08.png',
+        ],
+      },
       edge_of_irrationality: {
         cardImageSrc: '/src/assets/作品集/非理性边缘/非理性边缘海报.png',
         detailImageSrc: '/src/assets/作品集/非理性边缘/非理性边缘海报.png',

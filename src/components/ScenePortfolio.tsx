@@ -283,81 +283,128 @@ const DRIFT_SECTIONS = [
   }
 ];
 
-const IRRATIONALITY_SECTIONS = [
+const ITERATION_SECTIONS = [
   {
-    title: '项目简介',
-    enTitle: 'Project Introduction',
-    summary: '《非理智边缘》结合身体动作识别、实时视觉与AI文本生成，将音乐、身体、情绪与文字连接在同一体验空间。',
-    enSummary: 'Edge of Irrationality combines body motion tracking, real-time visuals, and AI-generated text over a unified physical zone.',
+    title: '项目概览',
+    enTitle: 'Project Overview',
+    summary: '2D横版平台叙事游戏 ｜ Game Jam 5人团队协作 ｜ 担任游戏美术 / UI设计 / 技术美术',
+    enSummary: '2D Platform Narrative Game | 5-member Game Jam | Game Artist / UI Designer / Technical Artist',
     details: [
-      '《非理智边缘》是一件结合身体动作识别、实时视觉生成与AI文本生成的交互实验作品。',
-      '项目尝试将音乐、身体、情绪与文字连接在同一体验空间中。',
-      '观众通过动作与声音触发不同的视觉反馈，系统则持续生成变化的图像与文本内容，使整个体验处于一种不断流动、难以被准确定义的状态。',
-      '相比传达明确的信息，我更关注那些难以被语言描述的感知经验。',
-      '作品希望探索：当情绪尚未被整理成语言时，它会以什么样的形式存在？'
+      '类型：2D横版平台叙事游戏 (2D Platform Narrative Game)',
+      '周期与规模：Game Jam 5人团队协作项目',
+      '我的角色：游戏美术 / UI 设计 / 技术美术 (Game Artist / UI Designer / Technical Artist)',
+      '核心职责：环境场景设计 (Environment Design)、UI 系统设计 (UI Design)、角色动画 (Character Animation)、Shader 特效开发 (Shader Effects) 与整体视觉风格确立 (Visual Style Development)',
+      '工具链底座：Unity、Blender、Photoshop、Shader Graph'
     ],
     enDetails: [
-      'Edge of Irrationality combines body motion tracking, real-time visuals, and AI-generated text.',
-      'The research loops music, physical expression, emotional states, and typography inside a single interactive environment.',
-      'Participants alter visual outputs, while generative scripts produce evolving graphics and text stream layers.',
-      'Prioritizing micro-sensory feelings over legible messages, it probes: how does emotion exist before words translate it?'
+      'Type: 2D Platform Narrative Game',
+      'Duration: Game Jam Project | Team: 5 members',
+      'My Role: Game Artist / UI Designer / Technical Artist',
+      'Responsibilities: Environment Design, UI Design, Character Animation, Shader Effects, Visual Style Development',
+      'Tools: Unity, Blender, Photoshop, Shader Graph'
     ]
   },
   {
-    title: '创作背景',
-    enTitle: 'Creative Background',
-    summary: '在逻辑消隐的感官探索中寻找绕开言语条框的直觉化情绪浸入，提供动作、声音与实时视觉搭建的感知场域。',
-    enSummary: 'Reflecting on sensory expressions that skip word frameworks, inviting direct primal immersion through kinetic fields.',
+    title: '设计理念',
+    enTitle: 'Design Concept',
+    summary: '以“数字废墟”为视觉核心，将游戏空间设计为一个被时间侵蚀的虚拟世界，探讨记忆重构。',
+    enSummary: 'Centered on "digital ruins", designing a virtual world eroded by time to explore memory reconstruction.',
     details: [
-      '很多情绪并不会直接以语言的形式出现。',
-      '它们更像是身体中的某种冲动、一段旋律带来的联想、或者一瞬间无法被解释的感受。',
-      '在创作《非理智边缘》时，我希望寻找一种能够绕开逻辑与叙事的表达方式。',
-      '与其描述一种情绪，我更想让观众直接进入这种情绪之中。',
-      '因此，项目从一开始便没有预设明确故事，而是试图通过动作、声音与实时生成内容构建一种感知场域。'
+      '在数字时代，信息不断复制、更新和遗忘，个体也在持续经历身份与记忆的重构。',
+      '《迭代》以“数字废墟”为视觉核心，将游戏空间设计为一个被时间侵蚀的虚拟世界：',
+      '• 崩坏的建筑象征旧数据的残留',
+      '• 不断变化的环境代表系统更新与重构',
+      '• 玩家探索过程对应对自我认知的重新建立',
+      '游戏希望让玩家在移动、观察和解谜过程中感受到一个正在变化的世界，而不是单纯完成关卡目标。'
     ],
     enDetails: [
-      'Many emotional currents avoid raw linguistic articulation, residing as raw bodily pulses.',
-      'They surface as musical associations, temporary shivers, or unexplainable transient impulses.',
-      'I sought a route bypassing standard logic-structures to allow audiences immediate emotional submersion.',
-      'Rather than describing a sentiment, we construct an immersive spatial sensory field via custom sensors and acoustics.'
+      'In the digital age, information is continuously replicated, updated, and forgotten, while individuals undergo constant identity and memory reconstruction.',
+      '"Iteration" takes "digital ruins" as its visual core, designing space as a virtual world eroded by time:',
+      '• Collapsed architecture symbolizes residual obsolete data',
+      '• Dynamic shifting environments represent system updates and restructuring',
+      '• The player\'s exploration journey mirrors the re-establishment of self-awareness',
+      'The game aims to let players experience a world in flux during movement, observation, and puzzle-solving, rather than merely checking off level goals.'
     ]
   },
   {
-    title: '设计与实现',
-    enTitle: 'Design & Implementation',
-    summary: '基于 TouchDesigner 研制，动作、音乐、非线性AI文本与多媒体流动共同织就无边际的多维情绪信息交互流。',
-    enSummary: 'Engineered on TouchDesigner, marrying movement trackers, music, and AI-driven dynamic typography feeds.',
+    title: '视觉设计',
+    enTitle: 'Visual Design',
+    summary: '偏暗色调数字废墟美术风格，参考《空洞骑士》氛围塑造，结合动态 Shader 赋能生命感。',
+    enSummary: 'Dark-toned digital ruin aesthetic inspired by Hollow Knight, empowered by dynamic Shaders.',
     details: [
-      '作品基于 TouchDesigner 开发。',
-      '观众的动作会触发不同的视觉变化，音乐则持续影响画面生成逻辑。',
-      '与此同时，AI生成文本不断出现在空间之中，并随着时间推进逐渐发生变化。',
-      '这些元素共同构成一种非线性的体验结构。',
-      '我并没有试图为观众提供明确的目标，而是希望他们在不断变化的信息流中建立属于自己的理解。'
+      '项目采用偏暗色调的数字废墟美术风格，参考《空洞骑士》的氛围塑造方式，通过：破碎结构、废弃机械元素、空间层次变化、动态材质效果，构建具有孤独感和探索感的游戏环境。',
+      '为了增强场景生命力，我使用 Shader 制作动态水面与材质变化效果，使静态场景拥有持续变化的视觉反馈。'
     ],
     enDetails: [
-      'The installation is built upon a TouchDesigner pipeline capturing camera feedback.',
-      'Acoustic triggers transform the pixel streams, while dynamic neural text populates the scene.',
-      'These materials create a nonlinear perceptual architecture without clear checkpoints or missions.',
-      'Participants are invited to extract subjective semantic codes from the continuously shifting media streams.'
+      'The project adopts a dark-toned digital ruin art style, referencing the atmospheric mood-crafting of Hollow Knight.',
+      'Through fragmented structures, abandoned mechanical motifs, spatial depth layering, and dynamic material shaders, it builds a lonely yet compelling world.',
+      'To heighten scene vitality, I crafted custom water shaders and material responses, providing continuous organic visual feedback to static environments.'
     ]
   },
   {
-    title: '项目反思',
-    enTitle: 'Project Reflection',
-    summary: '反思早期创作中视觉喧哗与深刻体验设计逻辑的博弈，实现从效果营造朝整体体验结构建隔的思维跃迁。',
-    enSummary: 'Pondering deep experience mapping over basic aesthetic triggers, guiding the pivot to holistic systems.',
+    title: '交互与体验',
+    enTitle: 'Interaction & Experience',
+    summary: '固定镜头横版平台玩法，通过“Explore → Observe → Interact → Progress”循环引导认知。',
+    enSummary: 'Fixed-camera platformer mechanics guided by an "Explore → Observe → Interact → Progress" loop.',
     details: [
-      '回顾这个项目时，我意识到自己当时更关注视觉效果与感知刺激本身。',
-      '虽然作品成功建立了一种氛围，但不同阶段之间缺少足够清晰的体验逻辑。',
-      '观众能够感受到变化，却未必能够理解变化产生的原因。',
-      '这种不足促使我在后续项目中开始更加关注叙事结构与体验设计的问题。',
-      '从《非理智边缘》到《泛灵》，我逐渐将注意力从“如何创造效果”转向“如何构建体验”。'
+      '游戏采用固定镜头横版平台玩法，通过：',
+      'Explore → Observe → Interact → Progress',
+      '的体验循环，引导玩家逐渐理解世界。',
+      '玩家不仅通过关卡推进获得信息，也通过环境细节和视觉变化建立对世界的认知。'
     ],
     enDetails: [
-      'Retrospectively, early stages prioritized direct aesthetic stimulation and high-contrast visuals.',
-      'While atmosphere felt potent, it missed coherent behavioral transition logic across different phases.',
-      'Participants felt the shift but missed the underlying mechanics connecting gesture to output.',
-      'This realized friction shifted my trajectory from superficial special effects toward system empathy and unified experience structures shown in ANIMISM.'
+      'Employs fixed-camera 2D platforming mechanics guided by a four-stage experiential cycle:',
+      'Explore → Observe → Interact → Progress',
+      'leading players to organically decode the world rules.',
+      'Players acquire narrative comprehension not only through linear level triggers, but also through environmental details and subtle visual shifts.'
+    ]
+  },
+  {
+    title: '界面设计',
+    enTitle: 'UI Design',
+    summary: '负责信息提示、状态反馈与视觉统一，将数字界面元素融入废墟环境，兼顾沉浸感与快速理解。',
+    enSummary: 'Designed HUD, status feedbacks, and cohesive visual language, integrating digital UI into ruin environments.',
+    details: [
+      '负责游戏内 UI 设计，包括：信息提示、状态反馈、游戏界面视觉统一。',
+      '设计目标是在保持沉浸感的同时，让玩家能够快速理解当前状态。',
+      'UI整体延续游戏世界观，将数字界面元素融入废墟环境，使功能信息成为世界的一部分。'
+    ],
+    enDetails: [
+      'Responsible for all in-game UI design, including informational prompts, state feedbacks, and overall interface consistency.',
+      'The design objective was preserving high narrative immersion while ensuring players instantly grasp their status.',
+      'The UI systematically extends world lore by embedding digital HUD elements into ruined environments, turning UI into an organic facet of the world.'
+    ]
+  },
+  {
+    title: '技术美术',
+    enTitle: 'Technical Art',
+    summary: '将技术工具融入视觉设计：Dynamic Water Shader 动态水面高光 与 Material Interaction 材质状态变化。',
+    enSummary: 'Blending technical shaders into visual art: Dynamic Water Shaders with specular highlights and Material Interaction.',
+    details: [
+      '为了增强游戏环境表现，我尝试将技术工具融入视觉设计：',
+      '• Dynamic Water Shader：通过 Shader 制作水面流动、高光反射效果，使环境具有动态生命感。',
+      '• Material Interaction：调整材质参数与视觉反馈，使不同环境元素具有更加明显的状态变化。'
+    ],
+    enDetails: [
+      'To elevate environmental fidelity and atmosphere, I integrated technical tools directly into visual styling:',
+      '• Dynamic Water Shader: Programmed fluid motion and specular highlight reflections, instilling dynamic life into the environment.',
+      '• Material Interaction: Tuned shader parameters and visual responses to give distinct environment elements vivid, interactive state transitions.'
+    ]
+  },
+  {
+    title: '挑战与反思',
+    enTitle: 'Challenges & Reflection',
+    summary: '应对 Game Jam 时间限制与团队协作挑战，明确视觉优先级并探索技术美术与环境叙事的深度融合。',
+    enSummary: 'Tackling Game Jam time limits and team alignment; establishing visual priorities and deep environmental narrative.',
+    details: [
+      'Challenge 1: Limited Production Time (有限制作时间) —— Game Jam时间有限，需要在有限资源下完成完整体验。Solution: 通过明确视觉优先级，将重点集中在核心场景、美术风格和关键交互反馈上，而不是追求大量内容。',
+      'Challenge 2: Team Collaboration (团队多模块协作) —— 团队成员负责不同模块，如何保证最终效果统一是主要挑战。Solution: 通过提前确定视觉规范、UI风格和资产方向，加强不同模块之间的协调。',
+      'Reflection (反思与展望) —— 如果继续开发，《迭代》可以进一步优化：增加更完整的叙事线索；丰富玩家与环境的互动方式；优化关卡节奏与反馈机制；建立更加系统化的视觉资产库。通过进一步结合技术美术与交互设计，让游戏世界不仅被观看，也能够被玩家感知和影响。'
+    ],
+    enDetails: [
+      'Challenge 1: Limited Production Time — With compressed Game Jam timelines, focused resources on high-priority core scenes, key visual style, and critical interactive feedback rather than inflating raw content volume.',
+      'Challenge 2: Team Collaboration — Aligned cross-functional members by establishing comprehensive style guides, UI design systems, and asset pipelines upfront.',
+      'Reflection & Future Roadmap — Further development for "Iteration" will integrate richer narrative threads, more diverse environmental interactions, refined level pacing, and systematized asset libraries to make the game world truly perceptible and interactive.'
     ]
   }
 ];
@@ -370,10 +417,20 @@ interface Experiment {
   tools: string;
   description: string;
   enDescription: string;
-  coverAnimType: 'lyrics' | 'particles' | 'web' | 'text' | 'animation';
+  coverAnimType: 'lyrics' | 'particles' | 'web' | 'text' | 'animation' | 'irrationality';
 }
 
 const EXPERIMENTS: Experiment[] = [
+  {
+    id: 'edge_of_irrationality',
+    title: '非理智边缘',
+    enTitle: 'Edge of Irrationality',
+    time: '2024',
+    tools: 'TouchDesigner × Body Tracking × AI Vision',
+    description: '结合身体动作识别、实时视觉与AI文本生成，将音乐、身体、情绪与文字连接在同一体验空间。绕开逻辑与语言条框，让观众通过动作与声音反馈直接浸入情绪。',
+    enDescription: 'Coupling body motion tracking, real-time visuals, and AI-generated narration to explore raw emotional currents before linguistic crystallization.',
+    coverAnimType: 'irrationality'
+  },
   {
     id: 'dynamic_lyrics',
     title: '动态歌词海报',
@@ -426,7 +483,50 @@ const EXPERIMENTS: Experiment[] = [
   }
 ];
 
-const renderExperimentCover = (type: 'lyrics' | 'particles' | 'web' | 'text' | 'animation') => {
+const renderExperimentCover = (type: 'lyrics' | 'particles' | 'web' | 'text' | 'animation' | 'irrationality') => {
+  if (type === 'irrationality') {
+    return (
+      <div className="w-full h-full bg-[#0d1117] flex flex-col justify-between relative overflow-hidden select-none border border-stone-800 group">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/src/assets/作品集/非理性边缘/非理性边缘海报.png"
+            alt="非理智边缘海报"
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover opacity-80 group-hover:opacity-95 group-hover:scale-105 transition-all duration-500"
+          />
+        </div>
+
+        {/* Scanline CRT overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.45)_50%)] bg-[length:100%_4px] pointer-events-none z-10 opacity-70" />
+
+        {/* Top HUD Badge */}
+        <div className="relative z-20 flex justify-between items-center p-2 text-[7px] font-mono text-cyan-300 font-black tracking-wider bg-black/60 backdrop-blur-[2px]">
+          <span className="flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+            BODY TRACKING
+          </span>
+          <span>TD × AI GENERATIVE</span>
+        </div>
+
+        {/* Bottom Audio/Motion Waveform Indicator */}
+        <div className="relative z-20 p-2 bg-gradient-to-t from-black via-black/80 to-transparent flex items-end justify-between">
+          <div className="flex gap-0.5 items-end h-5">
+            {[40, 80, 35, 95, 60, 100, 45, 85, 50, 90].map((h, i) => (
+              <motion.div
+                key={i}
+                className="w-1 bg-cyan-400 shadow-[0_0_4px_rgba(34,211,238,0.8)]"
+                animate={{ height: [`${h * 0.3}%`, `${h}%`, `${h * 0.4}%`] }}
+                transition={{ duration: 0.7 + (i % 4) * 0.25, repeat: Infinity, ease: 'easeInOut' }}
+              />
+            ))}
+          </div>
+          <span className="text-[7.5px] font-mono text-cyan-200 font-bold tracking-widest uppercase">
+            ACTIVE SENSOR FEED
+          </span>
+        </div>
+      </div>
+    );
+  }
   if (type === 'lyrics') {
     return (
       <div className="w-full h-full bg-stone-950 flex flex-col justify-between p-3 select-none overflow-hidden relative">
@@ -634,7 +734,7 @@ const renderExperimentCover = (type: 'lyrics' | 'particles' | 'web' | 'text' | '
   return null;
 };
 
-const renderDetailDiagrams = (type: 'lyrics' | 'particles' | 'web' | 'text' | 'animation') => {
+const renderDetailDiagrams = (type: 'lyrics' | 'particles' | 'web' | 'text' | 'animation' | 'irrationality') => {
   if (type === 'lyrics') {
     return (
       <div className="grid grid-cols-2 gap-4 my-4">
@@ -745,6 +845,38 @@ const renderDetailDiagrams = (type: 'lyrics' | 'particles' | 'web' | 'text' | 'a
     );
   }
 
+  if (type === 'irrationality') {
+    return (
+      <div className="grid grid-cols-2 gap-4 my-4">
+        <div className="border border-stone-300 p-2.5 bg-stone-50/50 flex flex-col justify-between h-36">
+          <div className="font-mono text-[7px] text-stone-400 font-bold uppercase">FIG 01 // KINETIC BODY TRACKING MESH</div>
+          <svg viewBox="0 0 100 50" className="w-full h-16 stroke-cyan-600 fill-none" strokeWidth="0.8">
+            <circle cx="50" cy="12" r="5" stroke="#0891b2" fill="#cffafe" />
+            <line x1="50" y1="17" x2="50" y2="34" stroke="#0891b2" strokeWidth="1.2" />
+            <line x1="50" y1="22" x2="30" y2="15" stroke="#0891b2" />
+            <line x1="50" y1="22" x2="70" y2="28" stroke="#0891b2" />
+            <line x1="50" y1="34" x2="36" y2="48" stroke="#0891b2" />
+            <line x1="50" y1="34" x2="64" y2="48" stroke="#0891b2" />
+            <circle cx="30" cy="15" r="2" fill="#0891b2" />
+            <circle cx="70" cy="28" r="2" fill="#0891b2" />
+            <circle cx="36" cy="48" r="2" fill="#0891b2" />
+            <circle cx="64" cy="48" r="2" fill="#0891b2" />
+          </svg>
+          <div className="font-mono text-[6px] text-stone-500 font-extrabold text-right">OPTICAL POSE VECTOR PIPELINE</div>
+        </div>
+        <div className="border border-stone-300 p-2.5 bg-stone-50/50 flex flex-col justify-between h-36">
+          <div className="font-mono text-[7px] text-stone-400 font-bold uppercase">FIG 02 // TD GENERATIVE TYPOGRAPHY FIELD</div>
+          <svg viewBox="0 0 100 50" className="w-full h-16">
+            <path d="M5,25 Q25,5 50,25 T95,25" fill="none" stroke="#0891b2" strokeWidth="1.2" />
+            <path d="M5,35 Q30,15 55,35 T95,35" fill="none" stroke="#7dd3fc" strokeWidth="0.8" strokeDasharray="2 2" />
+            <text x="50" y="44" textAnchor="middle" className="fill-stone-600 font-mono text-[5.5px]">AI LATENT STREAM</text>
+          </svg>
+          <div className="font-mono text-[6px] text-stone-500 font-extrabold text-right">NEURAL LATENT PROJECTION</div>
+        </div>
+      </div>
+    );
+  }
+
   if (type === 'animation') {
     return (
       <div className="grid grid-cols-2 gap-4 my-4">
@@ -839,7 +971,7 @@ export const ScenePortfolio: React.FC<ScenePortfolioProps> = ({ isEnglish, onEnt
     { id: 'drift_of_the_unfixed', color: '#32c0b9', badge: 'ARCH-01' },
     { id: 'animism', color: '#fed7aa', badge: 'ARCH-02' },
     { id: 'wuxingxing', color: '#ffb8d1', badge: 'ARCH-03' },
-    { id: 'edge_of_irrationality', color: '#cbf0ed', badge: 'ARCH-04' },
+    { id: 'iteration', color: '#88a4d3', badge: 'ARCH-04' },
     { id: 'explorations_archive', color: '#ffe0ea', badge: 'ARCH-05' }
   ];
 
@@ -891,7 +1023,7 @@ export const ScenePortfolio: React.FC<ScenePortfolioProps> = ({ isEnglish, onEnt
     if (projId === 'drift_of_the_unfixed') chords = [261.63, 329.63, 392.00, 523.25];
     else if (projId === 'animism') chords = [293.66, 349.23, 440.00, 587.33];
     else if (projId === 'wuxingxing') chords = [329.63, 392.00, 493.88, 659.25];
-    else if (projId === 'edge_of_irrationality') chords = [349.23, 440.00, 523.25, 698.46];
+    else if (projId === 'iteration') chords = [349.23, 440.00, 523.25, 698.46];
     else if (projId === 'explorations_archive') chords = [392.00, 493.88, 587.33, 783.99];
 
     chords.forEach((freq, idx) => {
@@ -1252,6 +1384,25 @@ export const ScenePortfolio: React.FC<ScenePortfolioProps> = ({ isEnglish, onEnt
                       </div>
 
                     </div>
+
+                    {/* Minimalist Light Single-Sentence Project Overview Tooltip */}
+                    <AnimatePresence>
+                      {isThisCardHovered && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -2 }}
+                          transition={{ duration: 0.18, ease: "easeOut" }}
+                          className="absolute top-[calc(100%+10px)] left-1/2 -translate-x-1/2 w-[220px] sm:w-[240px] pointer-events-none z-50"
+                        >
+                          <div className="bg-white/95 backdrop-blur-sm border border-stone-200 shadow-lg px-3 py-2 text-center rounded-xs">
+                            <p className="text-[10.5px] sm:text-[11px] text-stone-600 leading-relaxed font-sans select-none">
+                              {isEnglish ? proj.enDescription : proj.description}
+                            </p>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </motion.div>
                 );
               })}
@@ -1465,13 +1616,13 @@ export const ScenePortfolio: React.FC<ScenePortfolioProps> = ({ isEnglish, onEnt
                     <h4 className="text-[10px] font-mono text-stone-500 uppercase tracking-widest flex items-center gap-1.5 font-black border-b border-stone-200 pb-2">
                       <Award size={12} className="text-stone-900" />
                       <span>
-                        {activeProject.id === 'animism' || activeProject.id === 'wuxingxing' || activeProject.id === 'drift_of_the_unfixed' || activeProject.id === 'edge_of_irrationality'
+                        {activeProject.id === 'animism' || activeProject.id === 'wuxingxing' || activeProject.id === 'drift_of_the_unfixed' || activeProject.id === 'iteration'
                           ? (isEnglish ? 'PROJECT FILE SECTIONS (CLICK TO EXPAND)' : '参展档案分册研究 (点击以下分卷可展开)')
                           : (isEnglish ? 'CREATIVE RESEARCH FOOTPRINTS' : '筑造纪事印痕')}
                       </span>
                     </h4>
 
-                    {activeProject.id === 'animism' || activeProject.id === 'wuxingxing' || activeProject.id === 'drift_of_the_unfixed' || activeProject.id === 'edge_of_irrationality' ? (
+                    {activeProject.id === 'animism' || activeProject.id === 'wuxingxing' || activeProject.id === 'drift_of_the_unfixed' || activeProject.id === 'iteration' ? (
                       <div className="space-y-3 mt-3">
                         {(activeProject.id === 'animism' 
                           ? ANIMISM_SECTIONS 
@@ -1479,7 +1630,7 @@ export const ScenePortfolio: React.FC<ScenePortfolioProps> = ({ isEnglish, onEnt
                           ? WUXINGXING_SECTIONS 
                           : activeProject.id === 'drift_of_the_unfixed' 
                           ? DRIFT_SECTIONS 
-                          : IRRATIONALITY_SECTIONS).map((section, idx) => {
+                          : ITERATION_SECTIONS).map((section, idx) => {
                           const isExpanded = expandedSection === idx;
                           return (
                             <div 

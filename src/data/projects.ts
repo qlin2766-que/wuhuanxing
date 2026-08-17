@@ -77,28 +77,28 @@ export const PROJECTS: Project[] = [
     ]
   },
   {
-    id: 'edge_of_irrationality',
-    title: '非理智边缘',
-    enTitle: 'Edge of Irrationality',
-    description: '一件结合身体动作识别、实时视觉生成与AI文本生成的交互实验作品，探索情绪尚未被整理成语言时的感知存在形式。',
-    enDescription: 'An interactive physical-virtual sensory field coupling body motion tracking, real-time visuals, and AI-generated narration.',
-    role: '独立艺术与系统开发',
-    enRole: 'Solo Artist & Systems Developer',
-    tools: ['TouchDesigner', 'Body Tracking', 'AI Audio-Visuals', 'Dynamic Typography'],
-    category: 'Body Interaction / Real-time Generative Experiment',
+    id: 'iteration',
+    title: '迭代',
+    enTitle: 'Iteration',
+    description: '一款以“数字废墟”为视觉核心的2D横版平台叙事游戏，探索在信息不断复制、更新与遗忘时代中，个体的记忆重构与自我认知。',
+    enDescription: 'A 2D platform narrative game centered on "digital ruins", exploring memory reconstruction and selfhood in an era of rapid information obsolescence.',
+    role: '游戏美术 / UI 设计 / 技术美术',
+    enRole: 'Game Artist / UI Designer / Technical Artist',
+    tools: ['Unity', 'Blender', 'Photoshop', 'Shader Graph'],
+    category: '2D Platform Narrative Game / Game Jam',
     year: '2024',
     imageBg: 'm -20,60 c 40,-40 60,-40 80,0 c 20,40 -20,40 -40,10 c -20,-30 0,-50 0,-10 Z',
     details: [
-      '《非理智边缘》结合身体动作识别、实时视觉与AI文本生成，将音乐、身体、情绪与文字连接。',
-      '旨在寻找一种绕开逻辑与叙事的表达方式，让观众通过动作与声音反馈，直接浸入未整理入文字的情绪中。',
-      '基于 TouchDesigner 开发，交互会实时促变非线性多媒体流动，让情绪在不可定义的抽象流动中投射。',
-      '促使创作重点由单纯的“感知效果刺激”反思过渡到更完备的“叙事逻辑与体验系统”深度构建，启迪后续《泛灵》等作。'
+      '《迭代》是一款以“数字废墟”为核心视觉与世界观的2D横版平台叙事游戏。',
+      '将游戏空间设计为被时间侵蚀的虚拟世界，崩坏建筑象征旧数据残留，动态环境代表系统重构。',
+      '采用 Explore → Observe → Interact → Progress 循环引导玩家理解世界，并用 Shader 实现动态水面与材质反馈。',
+      '反思快速迭代时代的遗忘与记忆重构，探索技术美术与环境叙事深度融合的沉浸表达。'
     ],
     enDetails: [
-      '"Edge of Irrationality" couples body motion tracking, real-time visuals, and AI text generation, connecting music, body, emotion, and words.',
-      'Aiming to bypass logical narration, allowing audiences to immerse directly into raw emotions through movement and sound feedback.',
-      'Developed in TouchDesigner, interactions drive non-linear media flows in real time, projecting emotions into abstract motion.',
-      'Shifting focus from simple sensory stimuli to deep construction of narrative systems, inspiring subsequent works like "ANIMISM".'
+      '"Iteration" is a 2D platform narrative game centered on "digital ruins".',
+      'Designing space as a virtual world eroded by time, where collapsed architecture symbolizes residual data.',
+      'Employing an Explore → Observe → Interact → Progress loop with dynamic water shaders and material responses.',
+      'Reflecting on memory reconstruction in the digital era, deepening integration between technical art and environmental storytelling.'
     ]
   },
   {

@@ -86,6 +86,7 @@ export default function App() {
   const [prologueProgress, setPrologueProgress] = useState<'active' | 'completed'>('active');
   const [questionnaireProgress, setQuestionnaireProgress] = useState<'none' | 'active' | 'completed'>('none');
   const [scaleGirlProgress, setScaleGirlProgress] = useState<'intro' | 'completed'>('intro');
+  const [introProgress, setIntroProgress] = useState<'active' | 'completed'>('active');
   const [prevScene, setPrevScene] = useState<SceneId>('portfolio');
   const [nextScene, setNextScene] = useState<SceneId>('portfolio');
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
@@ -283,6 +284,25 @@ export default function App() {
           />
         );
       case 'intro':
+        if (introProgress !== 'completed') {
+          return (
+            <SceneTransitionalBigText 
+              isEnglish={isEnglish}
+              chapterLabelCn="初见"
+              chapterLabelEn="INTRODUCTION"
+              theme="dark"
+              slides={[
+                {
+                  textCn: "物换星的故事还在继续",
+                  textEn: "The story of Wuxingxing is still continuing."
+                }
+              ]}
+              onComplete={() => {
+                setIntroProgress('completed');
+              }}
+            />
+          );
+        }
         return (
           <SceneIntro 
             isEnglish={isEnglish} 
@@ -304,7 +324,7 @@ export default function App() {
 
   // Determine app-level background color based on active scene
   const getSceneBgClass = () => {
-    if (currentScene === 'scale_girl' || currentScene === 'wisdom_tooth') return 'bg-black';
+    if (currentScene === 'scale_girl' || currentScene === 'wisdom_tooth' || (currentScene === 'intro' && introProgress !== 'completed')) return 'bg-black';
     if (currentScene === 'menu') return 'bg-[#1a1e1e]';
     if (currentScene === 'portfolio') return 'bg-[#effffb]';
     return 'bg-[#FCFAF6]';
@@ -335,7 +355,7 @@ export default function App() {
       <main className="flex-1 w-full relative z-10 flex flex-col">
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${currentScene}_${questionnaireProgress}_${prologueProgress}_${scaleGirlProgress}`}
+            key={`${currentScene}_${questionnaireProgress}_${prologueProgress}_${scaleGirlProgress}_${introProgress}`}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
@@ -348,7 +368,7 @@ export default function App() {
       </main>
 
       {/* Floating Dialogue Console Layer (Hides on start menu, during big text screens, and before questionnaire completes) */}
-      {currentScene !== 'menu' && !isDialogueCompleted && activeDialogueLines.length > 0 && !(currentScene === 'portfolio' && prologueProgress !== 'completed') && !(currentScene === 'questionnaire' && questionnaireProgress !== 'completed') && !(currentScene === 'scale_girl' && scaleGirlProgress !== 'completed') && (
+      {currentScene !== 'menu' && !isDialogueCompleted && activeDialogueLines.length > 0 && !(currentScene === 'portfolio' && prologueProgress !== 'completed') && !(currentScene === 'questionnaire' && questionnaireProgress !== 'completed') && !(currentScene === 'scale_girl' && scaleGirlProgress !== 'completed') && !(currentScene === 'intro' && introProgress !== 'completed') && (
         <NovelFrame
           key={currentScene}
           lines={activeDialogueLines}
